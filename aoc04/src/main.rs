@@ -1,5 +1,6 @@
 fn main() {
     let input1 = "yzbqklnj";
+    let zeros = 5;
     let mut result: u32 = 0;
 
     loop {
@@ -8,7 +9,7 @@ fn main() {
             md5::compute(String::from(input1) + &result.to_string())
         );
 
-        if &hashed[0..5] == "00000" {
+        if &hashed[0..6] == "000000" {
             break;
         } else {
             result += 1;
@@ -16,4 +17,5 @@ fn main() {
     }
 
     println!("{}", result);
+
 }

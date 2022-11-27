@@ -23,6 +23,18 @@ fn part1(input: &str) -> bool {
             || input.contains("xy"))
 }
 
+fn part2(input: &str) -> bool {
+    let first_condition = Regex::new(r"(.)(.).*\1\2").unwrap().is_match(input).unwrap();
+    let mut second_condition: bool = false;
+    for i in 0..(input.len()-2) {
+        let a = input.to_string().as_bytes()[i as usize] as char;
+        let b = input.to_string().as_bytes()[i+2 as usize] as char;
+        if a == b {second_condition = true;}
+    }
+
+    first_condition && second_condition
+}
+
 fn main() {
     let mut nice_strings = 0;
     if let Ok(lines) = read_lines("input/input.txt") {
@@ -35,6 +47,18 @@ fn main() {
             }
         }
     }
-
     println!("{}", nice_strings);
+    nice_strings = 0;
+    if let Ok(lines) = read_lines("input/input.txt") {
+        // Consumes the iterator, returns an (Optional) String
+        for line in lines {
+            if let Ok(ip) = line {
+                if part2(&ip) {
+                    nice_strings += 1;
+                }
+            }
+        }
+    }
+    println!("{}", nice_strings);
+
 }
